@@ -1,4 +1,4 @@
-# UI Error Prompter
+# Error Prompter
 
 A Chrome Extension that turns visual UI bug-hunting into structured, copy-paste-ready prompts for AI coding assistants.
 
@@ -45,14 +45,14 @@ Fix all the issues listed above.
 ┌──────────┐     startInspect     ┌──────────────┐    executeScript    ┌─────────────┐
 │  Popup   │ ──────────────────►  │  Background  │  ────────────────►  │  Content.js │
 │  (UI)    │                      │  (Service    │                     │  (Injected  │
-│          │  ◄──────────────────  │   Worker)    │  ◄────────────────  │   into tab) │
-│          │   elementSelected     │              │   elementSelected   │             │
+│          │  ◄────────────────── │   Worker)    │  ◄────────────────  │   into tab) │
+│          │   elementSelected    │              │   elementSelected   │             │
 └──────────┘                      └──────────────┘                     └─────────────┘
      │                                   │
      │  Build Prompt                     │  chrome.storage.local
      ▼                                   │  (errorItems array)
 ┌──────────┐                             │
-│ OpenRouter│                            │
+│OpenRouter│                             │
 │ API      │                             │
 │ (Gemini) │                             │
 └──────────┘                             │
@@ -104,21 +104,5 @@ On first "Build Prompt", you'll be asked for an [OpenRouter API key](https://ope
 - **Gemini 2.5 Flash Lite** via OpenRouter API
 - **chrome.storage.local** for persistence
 
-## What I'd Do With Another 10 Hours
-
-- **Screenshot capture** — annotate directly on a screenshot of the element, attach it to the prompt
-- **Page URL detection** — include which page/route each error is on (Chrome's permission model made this tricky in the current version)
-- **Batch mode** — select multiple elements in one inspect session without returning to the popup
-- **Prompt templates** — let users customize the AI's output format for different coding assistants
-- **Element diff tracking** — detect if a flagged element has been fixed since it was captured
-
-## What I Cut
-
-- Live element tracking (elements are logged, not live-linked — simpler and more reliable)
-- Screenshot/annotation overlay (added complexity without core value)
-- Framework/build tooling (zero dependencies = instant load as unpacked extension)
-- Multi-page URL tracking (Chrome's tab permission model made it unreliable)
-
----
 
 Built for the [Activate AI Fellows Program](https://www.activate.build/) — Summer 2026.
