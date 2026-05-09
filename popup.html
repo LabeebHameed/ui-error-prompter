@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=360">
+  <title>UI Error Prompter</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+
+  <!-- ─── Header ──────────────────────────────────────────────────────── -->
+  <div class="header">
+    <span class="header-title">UI Error Prompter</span>
+    <span class="header-count hidden" id="headerCount"></span>
+  </div>
+
+  <!-- ─── View 1: Empty State ─────────────────────────────────────────── -->
+  <div id="viewEmpty" class="empty-state">
+    <div class="empty-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zM12 2.25V4.5m5.834.166l-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243l-1.59-1.59" />
+      </svg>
+    </div>
+    <p class="empty-message">No errors selected yet.</p>
+    <button class="btn btn-primary" id="btnSelectEmpty">Select Error Item</button>
+  </div>
+
+  <!-- ─── View 2: Errors List ─────────────────────────────────────────── -->
+  <div id="viewList" class="hidden">
+    <div class="error-list" id="errorList"></div>
+    <div class="actions-bar">
+      <button class="btn btn-secondary" id="btnSelectMore">Select Error Item</button>
+      <button class="btn btn-danger" id="btnBuildPrompt" disabled>Build Prompt</button>
+    </div>
+  </div>
+
+  <!-- ─── View 3: Generated Prompt ────────────────────────────────────── -->
+  <div id="viewPrompt" class="hidden">
+    <div class="prompt-view">
+      <!-- Loading -->
+      <div id="promptLoading" class="prompt-loading">
+        <div class="spinner"></div>
+        <span class="prompt-loading-text">Building your prompt…</span>
+      </div>
+      <!-- Result -->
+      <div id="promptResult" class="hidden fade-in">
+        <textarea class="prompt-textarea" id="promptOutput" readonly></textarea>
+        <div class="prompt-actions">
+          <button class="btn btn-secondary" id="btnCopy">Copy Prompt</button>
+          <button class="btn btn-danger" id="btnStartOver">Start Over</button>
+        </div>
+      </div>
+      <!-- Error -->
+      <div id="promptError" class="hidden"></div>
+    </div>
+  </div>
+
+  <!-- ─── API Key Modal (inline) ──────────────────────────────────────── -->
+  <div id="viewApiKey" class="hidden">
+    <div class="api-key-section">
+      <label class="api-key-label">OpenRouter API Key</label>
+      <p class="api-key-desc">Enter your OpenRouter API key to generate prompts with Gemini. Your key is stored locally and never shared.</p>
+      <div id="apiKeyError" class="error-message hidden"></div>
+      <input type="password" class="api-key-input" id="apiKeyInput" placeholder="sk-or-…">
+      <button class="btn btn-primary" id="btnSaveApiKey">Save & Continue</button>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
